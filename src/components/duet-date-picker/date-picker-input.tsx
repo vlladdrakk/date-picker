@@ -58,8 +58,8 @@ export const DatePickerInput: FunctionalComponent<DatePickerInputProps> = ({
   if (selectByWeek && value !== "") {
     const startOfWeek = getStartOfWeekDate(valueAsDate, firstDayOfWeek)
     const formatter = new Intl.DateTimeFormat(localization.locale, {
-      month: "short",
       day: "numeric",
+      month: "short",
       year: "numeric",
     })
 
@@ -72,7 +72,7 @@ export const DatePickerInput: FunctionalComponent<DatePickerInputProps> = ({
       <input
         class="duet-date__input"
         value={formattedDate}
-        placeholder={localization.placeholder}
+        placeholder={selectByWeek ? localization.weekPlaceholder : localization.placeholder}
         id={identifier}
         disabled={disabled}
         role={role}
