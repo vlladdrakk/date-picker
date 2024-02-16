@@ -54,16 +54,20 @@ export const DatePickerInput: FunctionalComponent<DatePickerInputProps> = ({
   let formattedDate = formattedValue
 
   if (selectByWeek && value !== "") {
+    const startOfWeek = new Date(valueAsDate.getTime())
     const formatter = new Intl.DateTimeFormat(localization.locale, {
       month: "short",
       day: "numeric",
       year: "numeric",
     })
-    const valueDate = new Date(value)
-    const startOfWeek = new Date(value)
-    startOfWeek.setDate(valueDate.getDate() - valueDate.getDay() + firstDayOfWeek)
 
-    actualValue = `${valueDate.getFullYear()}-W${getWeekNumber(valueDate)}`
+    // Adjust for start of week
+    if (startOfWeek.getDay() !== firstDayOfWeek) {
+      const day = valueAsDate.getDay()
+      startOfWeek.setDate(valueAsDate.getDate() - day + (day < firstDayOfWeek ? -6 : firstDayOfWeek))
+    }
+
+    actualValue = `${valueAsDate.getFullYear()}-W${getWeekNumber(valueAsDate)}`
     formattedDate = `Week of ${formatter.format(startOfWeek)}`
   }
 
