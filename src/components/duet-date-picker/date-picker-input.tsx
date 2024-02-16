@@ -1,6 +1,6 @@
 import { h, FunctionalComponent } from "@stencil/core"
 import { DuetLocalizedText } from "./date-localization"
-import { DaysOfWeek } from "./date-utils"
+import { DaysOfWeek, getStartOfWeekDate } from "./date-utils"
 
 type DatePickerInputProps = {
   value: string
@@ -54,18 +54,12 @@ export const DatePickerInput: FunctionalComponent<DatePickerInputProps> = ({
   let formattedDate = formattedValue
 
   if (selectByWeek && value !== "") {
-    const startOfWeek = new Date(valueAsDate.getTime())
+    const startOfWeek = getStartOfWeekDate(valueAsDate, firstDayOfWeek)
     const formatter = new Intl.DateTimeFormat(localization.locale, {
       month: "short",
       day: "numeric",
       year: "numeric",
     })
-
-    // Adjust for start of week
-    if (startOfWeek.getDay() !== firstDayOfWeek) {
-      const day = valueAsDate.getDay()
-      startOfWeek.setDate(valueAsDate.getDate() - day + (day < firstDayOfWeek ? -6 : firstDayOfWeek))
-    }
 
     actualValue = `${valueAsDate.getFullYear()}-W${getWeekNumber(valueAsDate)}`
     formattedDate = `Week of ${formatter.format(startOfWeek)}`
