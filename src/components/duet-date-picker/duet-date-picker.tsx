@@ -790,6 +790,7 @@ export class DuetDatePicker implements ComponentInterface {
                 min={minDate}
                 max={maxDate}
                 isDateDisabled={this.isDateDisabled}
+                selectByWeek={this.selectByWeek}
               />
             </div>
           </div>
