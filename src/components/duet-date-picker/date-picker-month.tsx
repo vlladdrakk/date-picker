@@ -55,7 +55,7 @@ export const DatePickerMonth: FunctionalComponent<DatePickerMonthProps> = ({
   const today = new Date()
   const days = getViewOfMonth(focusedDate, firstDayOfWeek)
 
-  const getSelectedDate = (day) => {
+  const getSelectedDate = day => {
     if (!selectByWeek || !selectedDate) {
       return selectedDate
     }
@@ -85,7 +85,12 @@ export const DatePickerMonth: FunctionalComponent<DatePickerMonthProps> = ({
       </thead>
       <tbody>
         {chunk(days, 7).map(week => (
-          <tr class="duet-date__row">
+          <tr
+            class={{
+              "duet-date__row": true,
+              "select-by-week": selectByWeek,
+            }}
+          >
             {week.map(day => (
               <td class="duet-date__cell">
                 <DatePickerDay
@@ -99,7 +104,6 @@ export const DatePickerMonth: FunctionalComponent<DatePickerMonthProps> = ({
                   dateFormatter={dateFormatter}
                   onKeyboardNavigation={onKeyboardNavigation}
                   focusedDayRef={focusedDayRef}
-
                 />
               </td>
             ))}
