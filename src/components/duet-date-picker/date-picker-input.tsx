@@ -28,6 +28,8 @@ function getWeekNumber(currentDate) {
   const days = Math.floor((currentDate - startDate.getTime()) / (24 * 60 * 60 * 1000))
 
   return Math.ceil(days / 7)
+    .toString()
+    .padStart(2, "0")
 }
 
 export const DatePickerInput: FunctionalComponent<DatePickerInputProps> = ({
